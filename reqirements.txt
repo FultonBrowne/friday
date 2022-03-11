@@ -1,0 +1,7 @@
+ipykernel
+pandas
+torch
+matplotlib
+sklearn
+torchtext
+git+https://github.com/ml-jku/hopfield-layers
