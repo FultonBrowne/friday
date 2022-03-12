@@ -13,6 +13,9 @@ class TextTools():
         x = self.tokenizer(input)
         logging.info("DONE: get tokens")
         return x
+    def byte_tokens(input):
+        raise NotImplementedError #TODO: find if this is needed and get it to work
+
 
 def test_text_tokenizer():
     input_text = "Hello, this is your pal friday, a digital voice assistant that can proccess Text, Images, Videos, Audio, and Datasets. abcdefghijklmnopqrstuvwrxyz ABCDEFGHIJKLMNOPQRSTUVWRXYZ 1234567890 ~!@#$%^&*()_+-=`[]{}\\<>,.?/:;"

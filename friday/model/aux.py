@@ -16,14 +16,6 @@ def train_epoch(network: Module,
                 data_loader: DataLoader,
                 device:torch.device
                ) -> Tuple[float, float]:
-    """
-    Execute one training epoch.
-    
-    :param network: network instance to train
-    :param optimiser: optimiser instance responsible for updating network parameters
-    :param data_loader: data loader instance providing training data
-    :return: tuple comprising training loss as well as accuracy
-    """
     network.train()
     losses, accuracies = [], []
     for sample_data in data_loader:
@@ -53,13 +45,7 @@ def eval_iter(network: Module,
               data_loader: DataLoader,
               device:torch.device
              ) -> Tuple[float, float]:
-    """
-    Evaluate the current model.
-    
-    :param network: network instance to evaluate
-    :param data_loader: data loader instance providing validation data
-    :return: tuple comprising validation loss as well as accuracy
-    """
+ 
     network.eval()
     with torch.no_grad():
         losses, accuracies = [], []
@@ -84,28 +70,22 @@ def operate(network: Module,
             optimiser: AdamW,
             data_loader_train: DataLoader,
             data_loader_eval: DataLoader,
-            num_epochs: int = 1
+            device:torch.device,
+            num_epochs: int = 1,
            ) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    """
-    Train the specified network by gradient descent using backpropagation.
-    
-    :param network: network instance to train
-    :param optimiser: optimiser instance responsible for updating network parameters
-    :param data_loader_train: data loader instance providing training data
-    :param data_loader_eval: data loader instance providing validation data
-    :param num_epochs: amount of epochs to train
-    :return: data frame comprising training as well as evaluation performance
-    """
+
     losses, accuracies = {r'train': [], r'eval': []}, {r'train': [], r'eval': []}
     for epoch in range(num_epochs):
         
         # Train network.
-        performance = train_epoch(network, optimiser, data_loader_train)
+        performance = train_epoch(network, optimiser, data_loader_train, device)
         losses[r'train'].append(performance[0])
         accuracies[r'train'].append(performance[1])
         
         # Evaluate current model.
-        performance = eval_iter(network, data_loader_eval)
+        performance = eval_iter(network=network,
+                                data_loader=data_loader_eval, 
+                                device=device)
         if epoch % 5 == 0:
             print("---------------------------------")
             print("epoch:", epoch, "of", num_epochs, "\naccuracy:", performance[1], "\nloss:", performance[0])
