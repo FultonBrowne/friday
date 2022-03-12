@@ -11,9 +11,13 @@ class FridayDataset(Dataset):
         data = df[labels[0]]
         target = df[labels[1]]
         return FridayDataset(data, target)
-    def from_hf(input, labels):
+    def from_hf(input, labels, ifppt=None, ifppd = None):
         data = input[labels[0]]
         target = input[labels[1]]
+        if ifppt != None:
+            data = ifppt(data)
+        if ifppd != None:
+            target = ifppd(target)
         return FridayDataset(data, target)
     def __len__(self) -> int:
         return len(self.data)
