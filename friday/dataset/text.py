@@ -13,10 +13,12 @@ class TextTools():
 
 
     def collate_tokenize(self, data):
-        print(len(data))
         text_batch = [element["data"] for element in data]
-        tokenized = self.tokenizer(text_batch, padding='longest', truncation=True, return_tensors = 'pt')
-        return tokenized
+        dtokenized = self.tokenizer(text_batch, padding='longest', truncation=True, return_tensors = 'pt')
+        text_batch = [element["target"] for element in data]
+        ttokenized = self.tokenizer(text_batch, padding='longest', truncation=True, return_tensors = 'pt')
+        return {r'data': dtokenized.input_ids, r'target': ttokenized}
+
 
 def text_dataset_bytetoken(input):
     t = TextTools()
