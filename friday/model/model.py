@@ -1,6 +1,6 @@
 from hflayers import Hopfield
-
 from torch.nn import Flatten, Linear, Module
+
 
 class Friday(Module):
     def __init__(self, input_size, num_instances):

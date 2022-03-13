@@ -20,7 +20,6 @@ def train_epoch(network: Module,
     network.train()
     losses, accuracies = [], []
     for sample_data in data_loader:
-        print(type(sample_data))
         data, target = sample_data[r'data'], sample_data[r'target']
         data, target = data.to(device=device), target.to(device=device)
 
