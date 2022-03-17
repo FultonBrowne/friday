@@ -1,10 +1,13 @@
+from typing import List, Tuple
 from hflayers import Hopfield
+from torch import Tensor
 from torch.nn import Flatten, Linear, Module
 
 
 class Friday(Module):
     def __init__(self, input_size, num_instances):
         super().__init__()
+        self.attentions:List[Tuple[Tensor, Tensor]] = list() # Tuple[Tensor, Tensor]
         self.hopfield = Hopfield(
             input_size=input_size,
             hidden_size=8,

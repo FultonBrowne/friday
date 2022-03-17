@@ -1,6 +1,7 @@
 # from https://github.com/sooftware/attentions/blob/master/attentions.py
 
 import math
+from turtle import forward
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -427,3 +428,9 @@ class CustomizingAttention(nn.Module):
         loc_energy = loc_energy.permute(0, 2, 1, 3).reshape(batch_size, v_len, self.num_heads * self.dim)
 
         return loc_energy
+
+class FridayAttention(nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+    def forward(last_attn: Tensor) -> Tuple[Tensor, Tensor]:
+        raise NotImplementedError
